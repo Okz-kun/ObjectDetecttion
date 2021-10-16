@@ -55,11 +55,11 @@ def object_detector(image):
         # 1: class name  2: object width in pixels, 3: position where have to draw text(distance)
         if classid ==2: # person class id 
             data_list.append([class_names[classid[0]], box[2], (box[0], box[1]-2)])
-        # elif classid ==0:
-            # data_list.append([class_names[classid[0]], box[2], (box[0], box[1]-2)])
-        # elif classid ==3:
-            # data_list.append([class_names[classid[0]], box[2], (box[0], box[1]-2)])
-        # return list 
+        elif classid ==0:
+            data_list.append([class_names[classid[0]], box[2], (box[0], box[1]-2)])
+        elif classid ==3:
+            data_list.append([class_names[classid[0]], box[2], (box[0], box[1]-2)])
+        return list 
     return data_list
 
 def focal_length_finder (measured_distance, real_width, width_in_rf):
@@ -71,28 +71,28 @@ def distance_finder(focal_length, real_object_width, width_in_frmae):
     distance = (real_object_width * focal_length) / width_in_frmae
     return distance
 
-# reading the reference image from dir 
-# ref_person = cv.imread('ReferenceImages/image14.png')
+reading the reference image from dir 
+ref_person = cv.imread('ReferenceImages/image14.png')
 ref_car = cv.imread('ReferenceImages/image16.png')
-# ref_mbike = cv.imread('ReferenceImages/image17.png')
+ref_mbike = cv.imread('ReferenceImages/image17.png')
 
-# person_data = object_detector(ref_person)
-# person_width_in_rf = person_data[0][1]
+person_data = object_detector(ref_person)
+person_width_in_rf = person_data[0][1]
 
 car_data = object_detector(ref_car)
 car_width_in_rf = car_data[0][1]
 
-# mbike_data = object_detector(ref_mbike)
-# mbike_width_in_rf = mbike_data[2][1]
+mbike_data = object_detector(ref_mbike)
+mbike_width_in_rf = mbike_data[2][1]
 
 
 
-# print(f"Person width in pixels : {person_width_in_rf} car width in pixels: {car_width_in_rf} motorbike width in pixels: {mbike_width_in_rf}")
-print(f"car width in pixels: {car_width_in_rf}")
+print(f"Person width in pixels : {person_width_in_rf} car width in pixels: {car_width_in_rf} motorbike width in pixels: {mbike_width_in_rf}")
+
 # finding focal length 
-# focal_person = focal_length_finder(KNOWN_DISTANCE, PERSON_WIDTH, person_width_in_rf)
+focal_person = focal_length_finder(KNOWN_DISTANCE, PERSON_WIDTH, person_width_in_rf)
 
-# focal_mbike = focal_length_finder(KNOWN_DISTANCE, MBIKE_WIDTH, mbike_width_in_rf)
+focal_mbike = focal_length_finder(KNOWN_DISTANCE, MBIKE_WIDTH, mbike_width_in_rf)
 
 focal_car = focal_length_finder(KNOWN_DISTANCE, CAR_WIDTH, car_width_in_rf)
 
@@ -106,12 +106,12 @@ while True:
         if d[0] =='car':
             distance = distance_finder (focal_car, CAR_WIDTH, d[1])
             x, y = d[2]
-        # elif d[0] =='person':
-            # distance = distance_finder(focal_person, PERSON_WIDTH, d[1])
-            # x, y = d[2]
-        # elif d[0] =='motorbike':
-            # distance = distance_finder (focal_mbike, MBIKE_WIDTH, d[1])
-            # x, y = d[2]
+        elif d[0] =='person':
+            distance = distance_finder(focal_person, PERSON_WIDTH, d[1])
+            x, y = d[2]
+        elif d[0] =='motorbike':
+            distance = distance_finder (focal_mbike, MBIKE_WIDTH, d[1])
+            x, y = d[2]
             
         distance = distance * 0.0254
         
