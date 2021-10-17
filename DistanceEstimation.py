@@ -59,7 +59,7 @@ def object_detector(image):
             data_list.append([class_names[classid[0]], box[2], (box[0], box[1]-2)])
         elif classid ==3:
             data_list.append([class_names[classid[0]], box[2], (box[0], box[1]-2)])
-        return list 
+        #return list 
     return data_list
 
 def focal_length_finder (measured_distance, real_width, width_in_rf):
@@ -71,7 +71,7 @@ def distance_finder(focal_length, real_object_width, width_in_frmae):
     distance = (real_object_width * focal_length) / width_in_frmae
     return distance
 
-reading the reference image from dir 
+#reading the reference image from dir 
 ref_person = cv.imread('ReferenceImages/image14.png')
 ref_car = cv.imread('ReferenceImages/image16.png')
 ref_mbike = cv.imread('ReferenceImages/image17.png')
